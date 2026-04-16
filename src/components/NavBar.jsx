@@ -253,7 +253,7 @@ function NavBar({
                 className="nav-text"
                 onClick={() => {
                   window.open(
-                    "https://www.youtube.com/watch?v=nRsa_qiGhN0",
+                    "https://github.com/mobr-ai/sap",
                     "_blank",
                     "noopener,noreferrer",
                   );
