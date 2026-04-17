@@ -70,6 +70,7 @@
 
 /* Glow goes on the pill instead (box-shadow is stable in Firefox) */
 .WelcomePage-scrollHintPill {
+  margin-bottom: 1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -235,6 +236,7 @@
   min-height: 100svh;
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .WelcomePage-content {

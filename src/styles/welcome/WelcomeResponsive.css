@@ -85,7 +85,8 @@
   .WelcomePage-scrollHint {
     bottom: 0.85rem;
     position: relative;
-    text-align-last: center;
+    margin: 2rem;
+    display: contents;
   }
 
   .WelcomeShowcase {
