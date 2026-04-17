@@ -11,6 +11,33 @@ function parseRecipientsText(raw) {
     .filter(Boolean);
 }
 
+function getUiLanguage() {
+  try {
+    const fromStorage =
+      window.localStorage.getItem("i18nextLng") ||
+      window.localStorage.getItem("language");
+    if (fromStorage && typeof fromStorage === "string") {
+      return fromStorage;
+    }
+  } catch (_err) {
+    // ignore
+  }
+
+  if (
+    typeof document !== "undefined" &&
+    document.documentElement &&
+    document.documentElement.lang
+  ) {
+    return document.documentElement.lang;
+  }
+
+  if (typeof navigator !== "undefined" && navigator.language) {
+    return navigator.language;
+  }
+
+  return "en";
+}
+
 export function useAdminNotifications(authFetch, showToast, t) {
   const authReady = !!authFetch;
 
@@ -119,6 +146,8 @@ export function useAdminNotifications(authFetch, showToast, t) {
       setNewUserTesting(true);
       const res = await authFetch("/api/v1/admin/notifications/new_user/test", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ language: getUiLanguage() }),
       });
 
       const data = await res.json().catch(() => null);
@@ -245,6 +274,8 @@ export function useAdminNotifications(authFetch, showToast, t) {
       setWaitlistTesting(true);
       const res = await authFetch("/api/v1/admin/notifications/waitlist/test", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ language: getUiLanguage() }),
       });
 
       const data = await res.json().catch(() => null);
@@ -268,7 +299,7 @@ export function useAdminNotifications(authFetch, showToast, t) {
   };
 
   // ======================================================
-  // USER CONFIRMED NOTIFICATIONS (NEW)
+  // USER CONFIRMED NOTIFICATIONS
   // ======================================================
 
   const [userConfirmedConfig, setUserConfirmedConfig] = useState({
@@ -382,7 +413,11 @@ export function useAdminNotifications(authFetch, showToast, t) {
       setUserConfirmedTesting(true);
       const res = await authFetch(
         "/api/v1/admin/notifications/user_confirmed/test",
-        { method: "POST" },
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ language: getUiLanguage() }),
+        },
       );
 
       const data = await res.json().catch(() => null);
