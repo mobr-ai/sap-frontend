@@ -6,10 +6,7 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import "../styles/AuthPage.css";
 
 const API_BASE = (import.meta.env.VITE_API_BASE || "").replace(/\/+$/, "");
-<<<<<<< HEAD
 const LAST_WALLET_KEY = "sap_last_solana_wallet";
-=======
->>>>>>> origin/main
 
 function withBase(url) {
   if (!url) return url;
@@ -55,7 +52,6 @@ function normalizeErrorMessage(err, fallback = "walletAuthFailed") {
   return msg;
 }
 
-<<<<<<< HEAD
 function getWalletIcon(walletName) {
   const normalized = (walletName || "").toLowerCase();
 
@@ -63,20 +59,6 @@ function getWalletIcon(walletName) {
   if (normalized.includes("solflare")) return "/icons/solflare.png";
 
   return "/icons/solana.png";
-=======
-function getWalletIcon(walletName, hasBrowserWalletFlow) {
-  const normalized = (walletName || "").toLowerCase();
-
-  if (normalized.includes("phantom")) {
-    return "/icons/phantom.png";
-  }
-
-  if (normalized.includes("solflare")) {
-    return "/icons/solflare.png";
-  }
-
-  return hasBrowserWalletFlow ? "/icons/solana.png" : "/icons/solana.png";
->>>>>>> origin/main
 }
 
 export default function SolanaWalletLogin({
@@ -104,22 +86,14 @@ export default function SolanaWalletLogin({
   const [authenticating, setAuthenticating] = useState(false);
   const [autoConnecting, setAutoConnecting] = useState(false);
   const [isWalletButtonHovered, setIsWalletButtonHovered] = useState(false);
-<<<<<<< HEAD
   const [connectRequestId, setConnectRequestId] = useState(0);
   const [restoreAttempted, setRestoreAttempted] = useState(false);
-
-  const prevConnectedRef = useRef(false);
-  const authInFlightRef = useRef(false);
-  const connectInFlightRef = useRef(false);
-  const attemptedAddressRef = useRef("");
-=======
 
   const prevConnectedRef = useRef(false);
   const attemptedAddressRef = useRef("");
   const authInFlightRef = useRef(false);
   const connectInFlightRef = useRef(false);
   const manualConnectRequestedRef = useRef(false);
->>>>>>> origin/main
 
   const address = useMemo(() => publicKey?.toBase58() || "", [publicKey]);
   const walletName = wallet?.adapter?.name || t("wallet.solanaDefaultName");
@@ -132,7 +106,6 @@ export default function SolanaWalletLogin({
     [wallets],
   );
 
-<<<<<<< HEAD
   const hasBrowserWalletFlow = useMemo(
     () => typeof setVisible === "function" && (wallets?.length || 0) > 0,
     [setVisible, wallets],
@@ -141,15 +114,6 @@ export default function SolanaWalletLogin({
   const currentWalletIcon = useMemo(
     () => getWalletIcon(walletName),
     [walletName],
-=======
-  const hasBrowserWalletFlow = useMemo(() => {
-    return typeof setVisible === "function" && (wallets?.length || 0) > 0;
-  }, [setVisible, wallets]);
-
-  const currentWalletIcon = useMemo(
-    () => getWalletIcon(walletName, hasBrowserWalletFlow),
-    [walletName, hasBrowserWalletFlow],
->>>>>>> origin/main
   );
 
   const resetAttempt = useCallback(() => {
@@ -157,7 +121,6 @@ export default function SolanaWalletLogin({
     authInFlightRef.current = false;
   }, []);
 
-<<<<<<< HEAD
   useEffect(() => {
     if (wallet?.adapter?.name) {
       localStorage.setItem(LAST_WALLET_KEY, wallet.adapter.name);
@@ -189,8 +152,6 @@ export default function SolanaWalletLogin({
     select,
   ]);
 
-=======
->>>>>>> origin/main
   useEffect(() => {
     if (!prevConnectedRef.current && connected && address) {
       showToast?.(
@@ -208,21 +169,18 @@ export default function SolanaWalletLogin({
     }
 
     prevConnectedRef.current = connected;
-<<<<<<< HEAD
-  }, [connected, address, showToast, t, resetAttempt]);
-
-  useEffect(() => {
-    if (!wallet) return;
-    if (connected || connecting || disabled) return;
-    if (connectRequestId === 0 && restoreAttempted) return;
-=======
   }, [connected, address, resetAttempt, showToast, t]);
 
   useEffect(() => {
-    if (!manualConnectRequestedRef.current) return;
     if (!wallet) return;
     if (connected || connecting || disabled) return;
->>>>>>> origin/main
+    if (
+      connectRequestId === 0 &&
+      restoreAttempted &&
+      !manualConnectRequestedRef.current
+    ) {
+      return;
+    }
     if (connectInFlightRef.current) return;
 
     let cancelled = false;
@@ -244,10 +202,7 @@ export default function SolanaWalletLogin({
         connectInFlightRef.current = false;
         if (!cancelled) {
           setAutoConnecting(false);
-<<<<<<< HEAD
-=======
           manualConnectRequestedRef.current = false;
->>>>>>> origin/main
         }
       }
     };
@@ -257,7 +212,6 @@ export default function SolanaWalletLogin({
     return () => {
       cancelled = true;
     };
-<<<<<<< HEAD
   }, [
     wallet,
     connected,
@@ -269,9 +223,6 @@ export default function SolanaWalletLogin({
     showToast,
     t,
   ]);
-=======
-  }, [wallet, connected, connecting, disabled, connect, showToast, t]);
->>>>>>> origin/main
 
   const authenticateWallet = useCallback(
     async ({ force = false } = {}) => {
@@ -385,7 +336,7 @@ export default function SolanaWalletLogin({
     if (disabled || connecting || authenticating || autoConnecting) return;
 
     resetAttempt();
-<<<<<<< HEAD
+    manualConnectRequestedRef.current = true;
 
     if (wallet && !connected) {
       setConnectRequestId((n) => n + 1);
@@ -394,11 +345,6 @@ export default function SolanaWalletLogin({
 
     if (hasBrowserWalletFlow) {
       setConnectRequestId((n) => n + 1);
-=======
-    manualConnectRequestedRef.current = true;
-
-    if (hasBrowserWalletFlow) {
->>>>>>> origin/main
       setVisible(true);
       return;
     }
@@ -406,10 +352,7 @@ export default function SolanaWalletLogin({
     if (availableWalletNames.has("Phantom")) {
       try {
         select("Phantom");
-<<<<<<< HEAD
         setConnectRequestId((n) => n + 1);
-=======
->>>>>>> origin/main
       } catch (err) {
         showToast?.(
           t(normalizeErrorMessage(err, "wallet.connectionFailed")),
@@ -422,10 +365,7 @@ export default function SolanaWalletLogin({
     if (availableWalletNames.has("Solflare")) {
       try {
         select("Solflare");
-<<<<<<< HEAD
         setConnectRequestId((n) => n + 1);
-=======
->>>>>>> origin/main
       } catch (err) {
         showToast?.(
           t(normalizeErrorMessage(err, "wallet.connectionFailed")),
@@ -455,17 +395,11 @@ export default function SolanaWalletLogin({
     }
 
     resetAttempt();
-<<<<<<< HEAD
-
-    try {
-      select(preferredWalletName);
-      setConnectRequestId((n) => n + 1);
-=======
     manualConnectRequestedRef.current = true;
 
     try {
       select(preferredWalletName);
->>>>>>> origin/main
+      setConnectRequestId((n) => n + 1);
     } catch (err) {
       showToast?.(
         t(normalizeErrorMessage(err, "wallet.connectionFailed")),
@@ -479,11 +413,8 @@ export default function SolanaWalletLogin({
 
     if (isWalletButtonHovered) {
       try {
-<<<<<<< HEAD
-        localStorage.removeItem(LAST_WALLET_KEY);
-=======
         manualConnectRequestedRef.current = false;
->>>>>>> origin/main
+        localStorage.removeItem(LAST_WALLET_KEY);
         resetAttempt();
         setIsWalletButtonHovered(false);
         await disconnect();
