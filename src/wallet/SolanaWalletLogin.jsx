@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
@@ -67,6 +68,7 @@ export default function SolanaWalletLogin({
   disabled = false,
 }) {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const {
     publicKey,
@@ -95,6 +97,9 @@ export default function SolanaWalletLogin({
   const connectInFlightRef = useRef(false);
   const manualConnectRequestedRef = useRef(false);
 
+  // NEW: terminal guard for addresses that already completed this auth cycle
+  const completedAddressRef = useRef("");
+
   const address = useMemo(() => publicKey?.toBase58() || "", [publicKey]);
   const walletName = wallet?.adapter?.name || t("wallet.solanaDefaultName");
 
@@ -119,6 +124,7 @@ export default function SolanaWalletLogin({
   const resetAttempt = useCallback(() => {
     attemptedAddressRef.current = "";
     authInFlightRef.current = false;
+    completedAddressRef.current = "";
   }, []);
 
   useEffect(() => {
@@ -228,6 +234,10 @@ export default function SolanaWalletLogin({
     async ({ force = false } = {}) => {
       if (!connected || !address || disabled) return;
       if (authInFlightRef.current) return;
+
+      // NEW: do not re-run once this address already reached a terminal auth result
+      if (!force && completedAddressRef.current === address) return;
+
       if (!force && attemptedAddressRef.current === address) return;
 
       if (typeof signMessage !== "function") {
@@ -292,19 +302,35 @@ export default function SolanaWalletLogin({
         }
 
         if (verifyData?.access_token) {
+          completedAddressRef.current = address;
           onLogin?.(verifyData);
           showToast?.(t("wallet.loginSuccess"), "success");
           return;
         }
 
         if (verifyData?.status === "pending_confirmation") {
-          showToast?.(t("wallet.pendingApproval"), "secondary");
+          completedAddressRef.current = address;
+
+          const params = new URLSearchParams({
+            state: "wallet",
+            uid: String(verifyData?.id || ""),
+            wallet: String(verifyData?.wallet_address || address || ""),
+          });
+
+          console.log("wallet verify payload", verifyData);
+          console.log(
+            "redirecting to waitlist",
+            `/waitlist?${params.toString()}`,
+          );
+          window.location.replace(`/signup?${params.toString()}`);
           return;
         }
 
         throw new Error("walletAuthFailed");
       } catch (err) {
-        resetAttempt();
+        attemptedAddressRef.current = "";
+        completedAddressRef.current = "";
+        authInFlightRef.current = false;
         showToast?.(
           t(normalizeErrorMessage(err, "walletAuthFailed")),
           "danger",
@@ -319,8 +345,8 @@ export default function SolanaWalletLogin({
       connected,
       disabled,
       i18n.language,
+      navigate,
       onLogin,
-      resetAttempt,
       showToast,
       signMessage,
       t,
@@ -427,7 +453,8 @@ export default function SolanaWalletLogin({
       return;
     }
 
-    resetAttempt();
+    attemptedAddressRef.current = "";
+    completedAddressRef.current = "";
     authenticateWallet({ force: true });
   };
 
@@ -464,7 +491,7 @@ export default function SolanaWalletLogin({
             {busy ? t("wallet.connecting") : t("wallet.connectSolanaWallet")}
           </Button>
 
-          {!hasBrowserWalletFlow && availableWalletNames.has("Phantom") && (
+          {availableWalletNames.has("Phantom") && !hasBrowserWalletFlow && (
             <Button
               className="Auth-oauth-button"
               variant="outline-secondary"
@@ -477,11 +504,11 @@ export default function SolanaWalletLogin({
                 alt="Phantom"
                 className="Auth-oauth-logo"
               />
-              {t("wallet.connectWithPhantom")}
+              {busy ? t("wallet.connecting") : t("wallet.connectPhantom")}
             </Button>
           )}
 
-          {!hasBrowserWalletFlow && availableWalletNames.has("Solflare") && (
+          {availableWalletNames.has("Solflare") && !hasBrowserWalletFlow && (
             <Button
               className="Auth-oauth-button"
               variant="outline-secondary"
@@ -494,7 +521,7 @@ export default function SolanaWalletLogin({
                 alt="Solflare"
                 className="Auth-oauth-logo"
               />
-              {t("wallet.connectWithSolflare")}
+              {busy ? t("wallet.connecting") : t("wallet.connectSolflare")}
             </Button>
           )}
         </>
@@ -504,9 +531,9 @@ export default function SolanaWalletLogin({
           variant="outline-secondary"
           size="md"
           onClick={handleConnectedButtonClick}
+          disabled={disabled || busy}
           onMouseEnter={() => setIsWalletButtonHovered(true)}
           onMouseLeave={() => setIsWalletButtonHovered(false)}
-          disabled={disabled || authenticating || autoConnecting}
         >
           <img
             src={currentWalletIcon}

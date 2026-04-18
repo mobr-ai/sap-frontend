@@ -30,8 +30,8 @@ function normalizeWalletParam(raw) {
   const v = (raw || "").trim();
   if (!v) return "";
   try {
-    return decodeURIComponent(v).trim().toLowerCase();
+    return decodeURIComponent(v).trim();
   } catch {
-    return v.toLowerCase();
+    return v.trim();
   }
 }
