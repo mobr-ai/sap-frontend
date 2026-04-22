@@ -4,22 +4,32 @@
 
 .admin-status-text {
   font-size: 0.9rem;
-  color: #9ca3af;
+  color: rgba(148, 163, 184, 0.92);
   margin-bottom: 0.5rem;
 }
 
 .admin-status-text--error {
-  color: #f97373;
+  color: #fb7185;
 }
 
 /* Notifications card */
 
 .admin-notify-card {
-  background: linear-gradient(135deg, #020617, #030712);
-  border-radius: 0.75rem;
-  padding: 0.85rem 1rem;
-  border: 1px solid rgba(75, 85, 99, 0.8);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(153, 69, 255, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(180deg, rgba(10, 18, 34, 0.96), rgba(6, 12, 24, 0.96));
+  border-radius: 18px;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(153, 69, 255, 0.16);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 0 22px rgba(153, 69, 255, 0.06);
+  backdrop-filter: blur(10px);
 }
 
 .admin-notify-row {
@@ -27,6 +37,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.75rem;
+  gap: 0.75rem;
 }
 
 .admin-notify-row--textarea {
@@ -38,6 +49,18 @@
 .admin-notify-textarea {
   font-size: 0.85rem;
   resize: vertical;
+  background: rgba(8, 15, 29, 0.86);
+  border: 1px solid rgba(120, 140, 180, 0.18);
+  color: rgba(248, 251, 255, 0.96);
+  border-radius: 14px;
+}
+
+.admin-notify-textarea:focus {
+  outline: none;
+  border-color: rgba(34, 211, 238, 0.42);
+  box-shadow:
+    0 0 0 3px rgba(34, 211, 238, 0.1),
+    0 0 18px rgba(153, 69, 255, 0.08);
 }
 
 .admin-notify-footer {

@@ -1,28 +1,35 @@
+/* src/styles/NavBar.css */
+
 /* ───────────────────────────────
    NAVBAR STRUCTURE & LAYOUT
    ─────────────────────────────── */
 :root {
   --nav-font:
-    ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
-    "Apple Color Emoji", "Segoe UI Emoji";
+    Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
   --nav-size: 14px;
-  --nav-height: 56px; /* slightly taller than before */
-  --nav-fg: #e5e7eb;
-  --nav-fg-dim: #94a3b8;
-  --nav-bg: #0b1222;
+  --nav-height: 56px;
+  --nav-fg: var(--sap-text, #f8fbff);
+  --nav-fg-dim: var(--sap-text-muted, rgba(148, 163, 184, 0.92));
+  --nav-bg: rgba(6, 12, 24, 0.78);
 }
 
 /* Bar container */
 .app-navbar {
-  background: #1e293b !important;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 16, 31, 0.92),
+    rgba(7, 13, 26, 0.88)
+  ) !important;
+  backdrop-filter: blur(14px);
   color: var(--nav-fg);
   font-family: var(--nav-font);
   font-size: var(--nav-size);
   min-height: var(--nav-height);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-  /* a little vertical breathing room so the burger is fully contained */
+  border-bottom: 1px solid rgba(120, 140, 180, 0.12);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
 }
@@ -37,7 +44,6 @@
 
 /* When sidebar burger exists */
 .has-left-burger .app-navbar-row {
-  /* grid-template-columns: 48px minmax(200px, auto) 1fr auto; */
   margin-left: 1rem;
 }
 
@@ -52,9 +58,17 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e5e7eb;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--nav-fg);
+  border: 1px solid rgba(153, 69, 255, 0.24);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.04);
+}
+
+.has-left-burger .Navbar-toggle-btn:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow:
+    0 0 18px rgba(153, 69, 255, 0.16),
+    0 0 18px rgba(34, 211, 238, 0.12);
 }
 
 /* Hide sidebar burger on small/mobile screens */
@@ -74,13 +88,12 @@
 
 .Navbar-brand-slot {
   display: inline-block;
-  /* width: clamp(180px, 26vw, 340px); */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  color: #f1f5f9;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #f8fbff;
 }
 
 /* Status strip */
@@ -94,7 +107,7 @@
   max-width: 680px;
   flex-wrap: nowrap;
   font-size: 0.85rem;
-  color: #cbd5e1;
+  color: var(--sap-text-soft, rgba(226, 232, 240, 0.92));
 }
 
 .status-item {
@@ -105,12 +118,12 @@
 }
 
 .status-item .label {
-  color: #94a3b8;
+  color: var(--nav-fg-dim);
   font-weight: 500;
 }
 
 .status-item .value {
-  color: #e5e7eb;
+  color: var(--nav-fg);
   font-weight: 600;
   max-width: 120px;
   overflow: hidden;
@@ -133,19 +146,23 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #9ca3af;
+  background: rgba(148, 163, 184, 0.85);
 }
-.status-item.sync .dot {
-  background: #f59e0b;
-}
-.status-item.sync.synced .dot {
-  background: #10b981;
-}
+
+.status-item.sync .dot,
 .status-item.checking .dot {
-  background: #f59e0b;
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
 }
+
+.status-item.sync.synced .dot {
+  background: #14f195;
+  box-shadow: 0 0 10px rgba(20, 241, 149, 0.55);
+}
+
 .status-item.offline .dot {
-  background: #ef4444;
+  background: #fb7185;
+  box-shadow: 0 0 10px rgba(251, 113, 133, 0.35);
 }
 
 /* User menu */
@@ -181,10 +198,13 @@
 /* Dropdown styling */
 .navbar .dropdown-menu-dark,
 .dropdown-menu-dark {
-  background-color: #0f172a !important;
-  border: 1px solid rgba(148, 163, 184, 0.15);
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  background: rgba(8, 14, 27, 0.96) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(153, 69, 255, 0.18);
+  border-radius: 10px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.45),
+    0 0 22px rgba(153, 69, 255, 0.08);
   min-width: 220px;
 }
 
@@ -195,11 +215,17 @@
   justify-content: space-between;
   gap: 0.5rem;
   color: var(--nav-fg);
-  transition: background 0.15s ease-in-out;
+  transition:
+    background 0.15s ease-in-out,
+    color 0.15s ease-in-out;
 }
 
 .dropdown-menu-dark .dropdown-item:hover {
-  background: rgba(148, 163, 184, 0.12);
+  background: linear-gradient(
+    90deg,
+    rgba(153, 69, 255, 0.12),
+    rgba(34, 211, 238, 0.08)
+  );
 }
 
 /* Submenu (language) */
@@ -242,10 +268,6 @@
     gap: 8px;
     font-size: 0.8rem;
   }
-
-  /* .Navbar-brand-slot {
-    width: clamp(140px, 40vw, 240px); 
-  } */
 }
 
 /* Large screens: hide Bootstrap's burger, only sidebar burger is used */
@@ -253,13 +275,13 @@
   .app-navbar .navbar-toggler {
     display: none !important;
   }
+
   .app-navbar .app-navbar-row {
     display: grid;
   }
 }
 
-/* On very small screens hide the heavy status bar entirely
-   so the navbar doesn't look cramped or wrap weirdly */
+/* On very small screens hide the heavy status bar entirely */
 @media (max-width: 576px) {
   .navbar-status-bar {
     display: none;
@@ -274,7 +296,16 @@
 .app-navbar .navbar-toggler {
   border-radius: 0.9rem;
   padding: 0.25rem 0.6rem;
-  border-color: rgba(148, 163, 184, 0.4);
+  border-color: rgba(153, 69, 255, 0.28);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.04);
+}
+
+.app-navbar .navbar-toggler:hover {
+  border-color: rgba(34, 211, 238, 0.42);
+  box-shadow:
+    0 0 18px rgba(153, 69, 255, 0.14),
+    0 0 18px rgba(34, 211, 238, 0.1);
 }
 
 /* Make the expanded mobile menu use a solid dark background */
@@ -286,10 +317,15 @@
   .app-navbar .navbar-collapse,
   .app-navbar .navbar-collapse.collapsing,
   .app-navbar .navbar-collapse.show {
-    background-color: var(--nav-bg);
+    background: linear-gradient(
+      180deg,
+      rgba(9, 16, 31, 0.96),
+      rgba(6, 12, 24, 0.96)
+    );
     padding: 0.5rem 1rem 0.75rem;
     margin-top: 0.35rem;
-    border-top: 1px solid rgba(148, 163, 184, 0.25);
+    border-top: 1px solid rgba(120, 140, 180, 0.18);
+    border-radius: 0 0 14px 14px;
   }
 
   .NavBar-top-container .nav-link,
@@ -307,7 +343,7 @@
   transform: none;
   background: transparent;
   border: none;
-  color: #e5e7eb;
+  color: var(--nav-fg);
   font-size: 1.4rem;
   display: flex;
   align-items: center;
@@ -368,7 +404,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 2px 6px 8px; /* bottom padding = hover buffer */
+  padding: 2px 6px 8px;
   border-radius: 10px;
   cursor: help;
 }
@@ -377,7 +413,7 @@
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.6px;
-  color: rgba(229, 231, 235, 0.85);
+  color: rgba(229, 231, 235, 0.88);
 }
 
 .app-sync-ring {
@@ -396,13 +432,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: -0.2px;
   line-height: 1;
   color: rgba(229, 231, 235, 0.92);
-
   pointer-events: none;
   user-select: none;
 }
@@ -413,7 +447,7 @@
 
 .app-sync-track {
   fill: none;
-  stroke: rgba(148, 163, 184, 0.25);
+  stroke: rgba(148, 163, 184, 0.2);
   stroke-width: 2.5;
 }
 
@@ -421,7 +455,7 @@
   fill: none;
   stroke-width: 2.5;
   stroke-linecap: round;
-  opacity: 0.95;
+  opacity: 0.96;
   transition:
     stroke-dasharray 600ms ease,
     opacity 200ms ease;
@@ -434,20 +468,15 @@
   opacity: 0;
 }
 
-/* .app-sync-pct {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #e5e7eb;
-  letter-spacing: 0.2px;
-} */
-
 /* States */
 .app-sync[data-state="synced"] .app-sync-progress {
-  stroke: #10b981;
+  stroke: #14f195;
+  filter: drop-shadow(0 0 4px rgba(20, 241, 149, 0.35));
 }
 
 .app-sync[data-state="syncing"] .app-sync-progress {
-  stroke: #f59e0b;
+  stroke: #22d3ee;
+  filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.35));
 }
 
 /* Only animate when syncing */
@@ -472,7 +501,7 @@
 
 /* Checking: subtle spinner */
 .app-sync[data-state="checking"] .app-sync-progress {
-  stroke: rgba(229, 231, 235, 0.65);
+  stroke: rgba(229, 231, 235, 0.72);
   stroke-dasharray: 10 999;
 }
 
@@ -491,7 +520,7 @@
 
 /* Offline: gray + slash */
 .app-sync[data-state="offline"] {
-  opacity: 0.75;
+  opacity: 0.78;
 }
 
 .app-sync[data-state="offline"] .app-sync-progress {
@@ -500,7 +529,7 @@
 }
 
 .app-sync[data-state="offline"] .app-sync-slash {
-  stroke: rgba(239, 68, 68, 0.85);
+  stroke: rgba(251, 113, 133, 0.88);
   opacity: 1;
 }
 
@@ -510,25 +539,23 @@
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-
   min-width: 240px;
   white-space: pre-line;
   padding: 10px 12px;
-  border-radius: 10px;
-
-  background: #0f172a;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
-
-  color: #e5e7eb;
+  border-radius: 12px;
+  background: rgba(8, 14, 27, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(153, 69, 255, 0.18);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.45),
+    0 0 22px rgba(153, 69, 255, 0.08);
+  color: var(--nav-fg);
   font-size: 0.78rem;
   line-height: 1.25rem;
-
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px);
   pointer-events: none;
-
   transition:
     opacity 140ms ease,
     transform 140ms ease,
@@ -575,9 +602,9 @@
   justify-content: center;
   font-weight: 800;
   font-size: 12px;
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  color: rgba(239, 68, 68, 0.95);
+  background: rgba(251, 113, 133, 0.12);
+  border: 1px solid rgba(251, 113, 133, 0.32);
+  color: rgba(251, 113, 133, 0.96);
   flex: 0 0 auto;
   vertical-align: middle;
 }

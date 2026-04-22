@@ -2,11 +2,15 @@
 
 /* Tab container for Query Details */
 .uq-tabcard {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  border: 1px solid rgba(153, 69, 255, 0.16);
+  border-radius: 16px;
   overflow: hidden;
   margin-top: 0.25rem;
-  background: rgba(2, 6, 23, 0.65);
+  background: linear-gradient(
+    180deg,
+    rgba(8, 14, 27, 0.84),
+    rgba(5, 10, 20, 0.88)
+  );
   flex: 0 1 auto;
   min-height: 0;
 }
@@ -15,9 +19,13 @@
   display: flex;
   gap: 0.4rem;
   align-items: center;
-  padding: 0.5rem 0.65rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(2, 6, 23, 0.85);
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid rgba(120, 140, 180, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(10, 18, 34, 0.95),
+    rgba(8, 14, 27, 0.95)
+  );
   flex-wrap: wrap;
 }
 
@@ -34,35 +42,47 @@
 
 /* Tabs */
 .uq-tab {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(120, 140, 180, 0.16);
+  background: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.88);
   border-radius: 10px;
   padding: 0.32rem 0.6rem;
   font-size: 0.82rem;
   line-height: 1;
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .uq-tab:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(
+      90deg,
+      rgba(153, 69, 255, 0.12),
+      rgba(34, 211, 238, 0.08)
+    );
+    border-color: rgba(34, 211, 238, 0.24);
   }
 }
 
 .uq-tab.active {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.26);
+  background: linear-gradient(
+    90deg,
+    rgba(153, 69, 255, 0.18),
+    rgba(34, 211, 238, 0.1)
+  );
+  border-color: rgba(153, 69, 255, 0.28);
+  box-shadow: 0 0 16px rgba(153, 69, 255, 0.08);
 }
 
 /*
-  Tight, "floating thumb" scrollbar used by widgets (Artifacts.css)
-  Reused here for QueryDetailsModal text areas.
+  Tight, "floating thumb" scrollbar used by widgets
 */
 .uq-tight-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  scrollbar-color: rgba(153, 69, 255, 0.34) transparent;
 }
 
 .uq-tight-scroll::-webkit-scrollbar {
@@ -75,7 +95,7 @@
 }
 
 .uq-tight-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   opacity: 0;
   transition:
@@ -85,11 +105,19 @@
 
 .uq-tight-scroll:hover::-webkit-scrollbar-thumb {
   opacity: 1;
-  background-color: rgba(255, 255, 255, 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.46),
+    rgba(34, 211, 238, 0.34)
+  );
 }
 
 .uq-tight-scroll::-webkit-scrollbar-thumb:active {
-  background-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.58),
+    rgba(34, 211, 238, 0.46)
+  );
 }
 
 /* QueryDetailsModal helpers */
@@ -116,9 +144,9 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(2, 6, 23, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(2, 6, 23, 0.76);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .uq-modal {
@@ -128,11 +156,19 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  color: #e5e7eb;
-  background: linear-gradient(135deg, #020617, #0b1220);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0.75rem;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  color: #f8fbff;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(153, 69, 255, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(180deg, rgba(8, 14, 27, 0.98), rgba(5, 10, 20, 0.98));
+  border: 1px solid rgba(153, 69, 255, 0.18);
+  border-radius: 18px;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(153, 69, 255, 0.08);
 }
 
 .uq-modal-header {
@@ -140,8 +176,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.9rem 1rem 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.95rem 1rem 0.85rem;
+  border-bottom: 1px solid rgba(120, 140, 180, 0.12);
   flex: 0 0 auto;
 }
 
@@ -149,7 +185,7 @@
   margin: 0;
   min-width: 0;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .uq-modal-close {
@@ -180,9 +216,9 @@
 .uq-modal-section label {
   display: block;
   margin-bottom: 0.45rem;
-  color: #9ca3af;
+  color: rgba(148, 163, 184, 0.92);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -220,9 +256,9 @@
 .uq-modal-code {
   max-height: 32vh;
   padding: 0.85rem 0.9rem;
-  border-radius: 12px;
-  background: rgba(2, 6, 23, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(8, 15, 29, 0.86);
+  border: 1px solid rgba(120, 140, 180, 0.12);
 }
 
 .uq-modal-query {
@@ -238,9 +274,9 @@
 .uq-modal-error {
   max-height: min(24vh, 240px);
   padding: 0.85rem 0.9rem;
-  border-radius: 12px;
+  border-radius: 14px;
   background: rgba(127, 29, 29, 0.18);
-  border: 1px solid rgba(248, 113, 113, 0.28);
+  border: 1px solid rgba(251, 113, 133, 0.28);
   color: #fecaca;
   font-size: 0.83rem;
   line-height: 1.45;
@@ -261,7 +297,7 @@
 .uq-modal-error.uq-tight-scroll,
 .uq-modal-grid.uq-tight-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  scrollbar-color: rgba(153, 69, 255, 0.34) transparent;
 }
 
 .uq-modal-query.uq-tight-scroll::-webkit-scrollbar,
@@ -283,7 +319,7 @@
 .uq-modal-code.uq-tight-scroll::-webkit-scrollbar-thumb,
 .uq-modal-error.uq-tight-scroll::-webkit-scrollbar-thumb,
 .uq-modal-grid.uq-tight-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   opacity: 0;
   transition:
@@ -296,14 +332,22 @@
 .uq-modal-error.uq-tight-scroll:hover::-webkit-scrollbar-thumb,
 .uq-modal-grid.uq-tight-scroll:hover::-webkit-scrollbar-thumb {
   opacity: 1;
-  background-color: rgba(255, 255, 255, 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.46),
+    rgba(34, 211, 238, 0.34)
+  );
 }
 
 .uq-modal-query.uq-tight-scroll::-webkit-scrollbar-thumb:active,
 .uq-modal-code.uq-tight-scroll::-webkit-scrollbar-thumb:active,
 .uq-modal-error.uq-tight-scroll::-webkit-scrollbar-thumb:active,
 .uq-modal-grid.uq-tight-scroll::-webkit-scrollbar-thumb:active {
-  background-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.58),
+    rgba(34, 211, 238, 0.46)
+  );
 }
 
 @media (max-width: 768px) {

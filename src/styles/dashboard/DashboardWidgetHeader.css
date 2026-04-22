@@ -2,8 +2,8 @@
 
 /* Bootstrap compatibility: force header to behave like our layout */
 .dashboard-widget .card-header.dashboard-widget-header {
-  padding: 0.75rem 0.85rem !important;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.12) !important;
+  padding: 0.8rem 0.9rem !important;
+  border-bottom: 1px solid rgba(120, 140, 180, 0.12) !important;
   background: transparent !important;
 
   display: flex !important;
@@ -11,10 +11,7 @@
   justify-content: flex-start !important;
   gap: 6px !important;
 
-  /* IMPORTANT: avoid clipping line-clamped text + toolbar transforms */
   overflow: visible !important;
-
-  /* make sure header spans the full card width */
   width: 100%;
   box-sizing: border-box;
 }
@@ -24,15 +21,12 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-
-  /* IMPORTANT: fill available width so title isn't formatted narrow */
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
 }
 
 .dashboard-widget-titleBlock {
-  /* IMPORTANT: allow the title area to expand and use all space */
   flex: 1 1 auto;
   min-width: 0;
   width: 100%;
@@ -41,27 +35,20 @@
 .widget-title {
   font-size: 1.03rem;
   font-weight: 700;
-
-  /* a bit more breathing room helps avoid descender clipping */
   line-height: 1.2;
-
-  color: rgba(255, 255, 255, 0.95);
-
+  color: rgba(255, 255, 255, 0.96);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-
   overflow: hidden;
-
-  /* ensure clamping uses full available width */
   max-width: 100%;
+  letter-spacing: -0.01em;
 }
 
 .widget-subtitle {
   font-size: 0.85rem;
   line-height: 1.25;
   margin-top: 2px;
-
   min-width: 0;
   max-width: 100%;
 }
@@ -96,7 +83,7 @@
 }
 
 .widget-subtitle-muted {
-  color: rgba(226, 232, 240, 0.55);
+  color: rgba(226, 232, 240, 0.58);
 }
 
 .widget-subtitle-iconBtn {
@@ -109,8 +96,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  /* avoid shrink weirdness */
   flex: 0 0 auto;
 }
 
@@ -128,11 +113,7 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-
-  /* never let toolbar steal width from title block */
   flex: 0 0 auto;
-
-  /* by default hidden on hover-capable devices */
   opacity: 0;
   transform: translateY(-2px);
   transition:
@@ -146,7 +127,7 @@
   transform: translateY(0);
 }
 
-/* Always show on touch-like devices (no hover) */
+/* Always show on touch-like devices */
 @media (hover: none), (pointer: coarse) {
   .dashboard-widget-toolbar {
     opacity: 1;
@@ -157,8 +138,8 @@
 /* Buttons */
 .dashboard-widget-toolBtn {
   appearance: none;
-  border: 1px solid var(--dash-btn-border);
-  background: var(--dash-btn-bg);
+  border: 1px solid rgba(120, 140, 180, 0.16);
+  background: rgba(8, 15, 29, 0.76);
   color: rgba(226, 232, 240, 0.92);
 
   width: 34px;
@@ -176,13 +157,19 @@
     transform 120ms ease,
     background 120ms ease,
     border-color 120ms ease,
-    color 120ms ease;
+    color 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .dashboard-widget-toolBtn:hover {
   transform: translateY(-1px);
-  background: var(--dash-btn-bg-hover);
-  border-color: var(--dash-btn-border-hover);
+  background: linear-gradient(
+    135deg,
+    rgba(153, 69, 255, 0.12),
+    rgba(34, 211, 238, 0.08)
+  );
+  border-color: rgba(34, 211, 238, 0.26);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.08);
 }
 
 .dashboard-widget-toolBtn:active {

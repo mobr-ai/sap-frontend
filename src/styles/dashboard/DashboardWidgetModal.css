@@ -6,21 +6,29 @@
 
 /* Modal content should be a stable flex column */
 .dashboard-widget-modal .modal-content {
-  background: var(--dash-bg);
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(153, 69, 255, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(180deg, rgba(8, 14, 27, 0.98), rgba(5, 10, 20, 0.98));
+  border-radius: 20px;
+  border: 1px solid rgba(153, 69, 255, 0.18);
   color: #fff;
   display: flex;
   flex-direction: column;
 
-  /* Default desktop sizing */
   width: min(1100px, 92vw);
   max-height: min(86vh, 980px);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(153, 69, 255, 0.08);
 }
 
 /* Header stays natural height */
 .dashboard-widget-modal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(120, 140, 180, 0.12);
   padding: 14px 16px;
   flex: 0 0 auto;
 }
@@ -29,6 +37,7 @@
   font-size: 18px;
   line-height: 1.2;
   margin: 0;
+  font-weight: 700;
 }
 
 /* Body takes remaining space */
@@ -43,7 +52,6 @@
 .dashboard-widget-modal-inner {
   display: flex;
   width: 100%;
-  /* height: 100%; */
   min-height: 0;
 }
 
@@ -56,7 +64,7 @@
   overflow: hidden;
 }
 
-/* Embed area: let Vega control internal canvas sizing (no stretching) */
+/* Embed area */
 .dashboard-widget-modal-inner .vega-chart-embed,
 .dashboard-widget-modal-inner .vega-embed {
   flex: 1 1 auto;
@@ -65,9 +73,7 @@
   display: flex;
 }
 
-/* Critical: do NOT force canvas/svg to 100% height (that distorts)
-   Instead, allow Vega to re-render to container size.
-*/
+/* Critical: do NOT force canvas/svg to 100% height */
 .dashboard-widget-modal-inner canvas,
 .dashboard-widget-modal-inner svg {
   max-width: 100%;
@@ -115,7 +121,7 @@
   z-index: 20000 !important;
   pointer-events: none;
   background-color: rgb(43 48 53);
-  opacity: 0.85;
+  opacity: 0.9;
   color: white;
 }
 
@@ -136,14 +142,13 @@
   max-height: calc(96dvh - 4vh);
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
   height: 62vh;
 }
 
 /* Let modal body be the flexible area */
 .dashboard-widget-modal .modal-body {
   flex: 1 1 auto;
-  min-height: 720; /* critical for flex children to be able to shrink/scroll */
+  min-height: 0;
   display: flex !important;
   flex-direction: column;
 }
@@ -161,7 +166,3 @@
   flex: 1 1 auto;
   min-height: 0;
 }
-
-/* .fade.modal.show {
-  display: flex !important;
-}*/

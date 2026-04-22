@@ -5,9 +5,16 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 14, 27, 0.78),
+    rgba(10, 18, 34, 0.82)
+  );
+  border: 1px solid rgba(120, 140, 180, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+    0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
 /* Vega safety */
@@ -16,14 +23,15 @@
 .vega-chart-container svg {
   max-width: 100%;
   height: auto;
-  /* max-height: 600px; */
 }
 
 /* KV tables must never stretch layout */
 .kv-table-wrapper {
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
+  display: block;
 }
 
 /* Artifact tools */
@@ -42,25 +50,27 @@
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: transform 0.12s ease;
+  border: 1px solid rgba(120, 140, 180, 0.16);
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
 }
 
 .artifact-toolBtn:hover:not(:disabled) {
   transform: translateY(-1px);
+  background: linear-gradient(
+    135deg,
+    rgba(153, 69, 255, 0.1),
+    rgba(34, 211, 238, 0.08)
+  );
+  border-color: rgba(34, 211, 238, 0.28);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.08);
 }
 
 .artifact-toolBtn:disabled {
   opacity: 0.5;
-}
-
-/* Wrapper MUST define the width context */
-.kv-table-wrapper {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: auto;
-  display: block;
 }
 
 /* Table itself */
@@ -73,24 +83,27 @@
 
 .kv-table th,
 .kv-table td {
-  padding: 0.35rem 0.6rem;
-  border-bottom: 1px solid #243047;
+  padding: 0.45rem 0.65rem;
+  border-bottom: 1px solid rgba(120, 140, 180, 0.12);
   white-space: nowrap;
 }
 
 .kv-table thead th {
   position: sticky;
   top: 0;
-  background-color: #111827;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 28, 48, 0.96),
+    rgba(10, 18, 34, 0.96)
+  );
   z-index: 1;
   cursor: pointer;
 }
 
 /* table scrollbars */
-
 .table-scroll {
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(153, 69, 255, 0.34) transparent;
 }
 
 /* WebKit browsers */
@@ -119,23 +132,29 @@
   opacity: 1;
 }
 
-/* Hover / active state */
 .table-scroll:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.46),
+    rgba(34, 211, 238, 0.34)
+  );
 }
 
-/* Optional: active drag */
 .table-scroll::-webkit-scrollbar-thumb:active {
-  background-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.58),
+    rgba(34, 211, 238, 0.46)
+  );
 }
 
 /* Links */
 .kv-table-link {
-  color: #93c5fd;
+  color: #8be9ff;
   text-decoration: underline;
 }
 .kv-table-link:hover {
-  color: #bfdbfe;
+  color: #b7f3ff;
 }
 
 /* Artifact action row */
@@ -149,8 +168,8 @@
 /* Buttons */
 .app-root .artifact-toolBtn {
   appearance: none;
-  border: 1px solid #374151;
-  background: #111827;
+  border: 1px solid rgba(120, 140, 180, 0.16);
+  background: rgba(8, 15, 29, 0.72);
   color: rgba(226, 232, 240, 0.92);
 
   width: 34px;
@@ -165,12 +184,19 @@
   transition:
     transform 120ms ease,
     background 120ms ease,
-    border-color 120ms ease;
+    border-color 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .app-root .artifact-toolBtn:hover:not(:disabled) {
-  background: #1f2937;
+  background: linear-gradient(
+    135deg,
+    rgba(153, 69, 255, 0.12),
+    rgba(34, 211, 238, 0.08)
+  );
+  border-color: rgba(34, 211, 238, 0.26);
   transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.08);
 }
 
 .app-root .artifact-toolBtn:disabled {
@@ -178,18 +204,16 @@
   cursor: not-allowed;
 }
 
-/* Clickable Vega charts: force pointer on the actual vega-embed wrapper */
+/* Clickable Vega charts */
 .vega-chart-clickable .vega-embed,
 .vega-chart-clickable .vega-embed * {
   cursor: pointer !important;
 }
 
-/* Also cover the canvas explicitly (some browsers are picky) */
 .vega-chart-clickable canvas {
   cursor: pointer !important;
 }
 
-/* Modal wrapper may also win in some layouts */
 .dashboard-widget-modal-inner .vega-chart-clickable,
 .dashboard-widget-modal-inner .vega-chart-clickable * {
   cursor: pointer !important;

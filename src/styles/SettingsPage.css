@@ -1,30 +1,66 @@
 /* src/styles/SettingsPage.css */
+
 .Settings-body {
-  background-color: #2b303a;
-  color: #fff;
-  font-family: Anton;
   min-height: 100vh;
   overflow-wrap: anywhere;
   padding: 2rem;
+  color: var(--sap-text, #f8fbff);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(153, 69, 255, 0.12),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 85% 12%,
+      rgba(34, 211, 238, 0.08),
+      transparent 18%
+    ),
+    linear-gradient(180deg, #050b16 0%, #030712 100%);
 }
 
 .Settings-container {
-  background: #343a40;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #0000001a;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 18, 34, 0.94),
+    rgba(8, 14, 27, 0.92)
+  );
+  border: 1px solid rgba(153, 69, 255, 0.16);
+  border-radius: 22px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 0 30px rgba(153, 69, 255, 0.08);
   margin: auto;
-  max-width: 600px;
+  max-width: 700px;
   padding: 2rem;
-  font-family: monospace;
+  font-family: inherit;
+  color: inherit;
 }
 
 .Settings-title {
-  margin-bottom: 1.5rem;
-  margin-top: 1rem;
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f8fbff;
 }
 
 .Settings-user-box {
   margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(120, 140, 180, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
 .Settings-referral-row {
@@ -32,21 +68,31 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 1.5rem;
+  gap: 0.75rem;
 }
 
 .Settings-username-wallet {
-  font-size: smaller;
+  font-size: 0.92rem;
+  color: rgba(148, 163, 184, 0.92);
 }
 
 .Settings-referral-link {
   display: inline-block;
   margin-bottom: 0.5rem;
-  color: #61dafb;
+  color: #8be9ff;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.Settings-referral-link:hover {
+  color: #b7f3ff;
+  text-decoration: underline;
 }
 
 .Settings-referral-buttons {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .Settings-icon {
@@ -58,7 +104,7 @@
 .Settings-handle-row {
   display: flex;
   align-items: center;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
 }
 
 .Settings-editable-line {
@@ -66,30 +112,57 @@
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.Settings-editable-line:hover {
+  color: #ffffff;
 }
 
 .Settings-primary-name {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f8fbff;
 }
 
 .Settings-secondary-handle {
-  opacity: 0.9;
+  color: rgba(148, 163, 184, 0.92);
 }
 
 .Settings-inline-input {
   width: 100%;
-  max-width: 260px;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #6c757d;
-  background: #2f353b;
-  color: #fff;
+  max-width: 280px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(120, 140, 180, 0.24);
+  background: rgba(6, 12, 24, 0.88);
+  color: rgba(248, 251, 255, 0.96);
   outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.Settings-inline-input:focus {
+  border-color: rgba(34, 211, 238, 0.42);
+  box-shadow:
+    0 0 0 3px rgba(34, 211, 238, 0.1),
+    0 0 18px rgba(153, 69, 255, 0.08);
+  background: rgba(8, 15, 29, 0.94);
 }
 
 /* Ensure avatar and info stack on small screens */
 @media (max-width: 768px) {
+  .Settings-body {
+    padding: 1rem;
+  }
+
+  .Settings-container {
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+
   .Settings-user-box .row {
     flex-direction: column;
     align-items: center;
@@ -122,28 +195,40 @@
   margin-bottom: 1rem;
   cursor: pointer;
   margin: auto;
-  padding: 10px;
+  padding: 12px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(153, 69, 255, 0.14),
+    rgba(34, 211, 238, 0.08)
+  );
+  box-shadow:
+    0 0 24px rgba(153, 69, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .Settings-avatar-icon {
   position: absolute;
   height: 1.5rem;
-  color: lightseagreen;
+  color: #14f195;
   margin-top: 4vh;
   cursor: pointer;
 }
 
 .Settings-username-icon {
-  color: gray;
+  color: rgba(148, 163, 184, 0.9);
   margin-left: 0.5rem;
   font-size: 0.85rem;
+  transition: color 0.15s ease;
 }
 
 .Settings-editable-line:hover .Settings-username-icon {
-  color: lightseagreen;
+  color: #14f195;
 }
 
 .Settings-danger-zone {
-  background-color: #59454d;
-  border-radius: 6px;
+  background: rgba(127, 29, 29, 0.2);
+  border: 1px solid rgba(251, 113, 133, 0.24);
+  border-radius: 16px;
+  padding: 1rem;
 }

@@ -10,28 +10,53 @@
 
 /* Scoped custom properties (instead of :root) */
 .app-root {
-  --primary: #2563eb;
-  --primary-dark: #1e40af;
-  --secondary: #64748b;
+  --primary: #9945ff;
+  --primary-dark: #7c3aed;
+  --secondary: #7c8aa5;
 
-  --background: #020617;
-  --surface: #0f172a;
-  --surface-light: #1e293b;
+  --background: #030712;
+  --surface: rgba(9, 16, 31, 0.88);
+  --surface-light: rgba(16, 28, 48, 0.92);
+  --surface-soft: rgba(255, 255, 255, 0.035);
 
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
+  --text-primary: #f8fbff;
+  --text-secondary: rgba(203, 213, 225, 0.9);
+  --text-muted: rgba(148, 163, 184, 0.86);
 
-  --border: #273549;
+  --border: rgba(120, 140, 180, 0.16);
+  --border-strong: rgba(153, 69, 255, 0.18);
 
-  --success: #10b981;
-  --error: #ef4444;
+  --accent-cyan: #22d3ee;
+  --accent-green: #14f195;
+
+  --success: #10f0b5;
+  --error: #fb7185;
   --warning: #f59e0b;
 
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 
-  background: var(--background);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(153, 69, 255, 0.14),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 85% 14%,
+      rgba(34, 211, 238, 0.08),
+      transparent 20%
+    ),
+    linear-gradient(180deg, #050b16 0%, #030712 100%);
   color: var(--text-primary);
   line-height: 1.6;
 
@@ -44,13 +69,13 @@
 
 /* main page container (also used by DashboardPage) */
 .app-root .container {
-  max-width: 60vw;
+  max-width: min(1120px, 78vw);
   margin: 1rem auto;
 
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 
   width: 100%;
 }
@@ -58,18 +83,26 @@
 /* Chat wrapper */
 .app-root .chat-container {
   flex: 1;
-  background: var(--surface);
-  border-radius: 12px;
-  border: 1px solid var(--border);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(153, 69, 255, 0.07),
+      transparent 28%
+    ),
+    linear-gradient(180deg, rgba(9, 16, 31, 0.92), rgba(6, 12, 24, 0.92));
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
 
   display: flex;
   flex-direction: column;
 
   overflow: hidden;
-  /* min-height: 500px; */
-
-  /* critical so the inner scroller can work */
   min-height: 0;
+
+  box-shadow:
+    0 20px 46px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 0 28px rgba(153, 69, 255, 0.06);
 }
 
 /* Messages list */
@@ -87,34 +120,48 @@
 }
 
 /* Scrollbars for messages */
+.app-root .messages {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(153, 69, 255, 0.34) transparent;
+}
+
 .app-root .messages::-webkit-scrollbar {
   width: 8px;
 }
 
 .app-root .messages::-webkit-scrollbar-track {
-  background: var(--surface);
+  background: transparent;
 }
 
 .app-root .messages::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.4),
+    rgba(34, 211, 238, 0.28)
+  );
+  border-radius: 999px;
   cursor: pointer;
 }
 
 .app-root .messages::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary);
+  background: linear-gradient(
+    180deg,
+    rgba(153, 69, 255, 0.54),
+    rgba(34, 211, 238, 0.42)
+  );
 }
 
 /* Responsive tweaks (mobile) */
 @media (max-width: 768px) {
   .app-root .container {
-    padding: 0rem;
+    padding: 0;
     max-width: 99vw;
+    margin: 0.65rem auto;
   }
 
   .app-root .chat-container {
     min-height: 420px;
-    border-radius: 10px;
+    border-radius: 14px;
   }
 
   .app-root .messages {
@@ -142,8 +189,9 @@
   text-align: center;
 
   font-size: 1.6rem;
-  font-weight: 650;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 
   color: var(--text-primary);
 
@@ -168,7 +216,7 @@
   margin-left: 6px;
   transform: translateY(2px);
 
-  background: rgba(241, 245, 249, 0.7);
+  background: rgba(248, 251, 255, 0.72);
   border-radius: 2px;
 
   animation: landingCaretBlink 0.9s steps(1) infinite;
@@ -182,158 +230,11 @@
 
 @media (max-width: 768px) {
   .app-root .landing-empty-line {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
   .app-root .landing-empty {
     min-height: 25rem !important;
-  }
-}
-
-.app-root .landing-empty {
-  flex: 1;
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  gap: 1.25rem;
-  padding: 2.25rem 1.5rem;
-}
-
-/* Static robot section */
-.app-root .landing-empty-robotWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.app-root .landing-empty-robotBadge {
-  width: 88px;
-  height: 88px;
-  border-radius: 999px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0) 60%
-    ),
-    linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.42),
-    0 0 0 6px rgba(37, 99, 235, 0.08),
-    0 0 38px rgba(37, 99, 235, 0.16);
-
-  position: relative;
-  overflow: hidden;
-}
-
-/* subtle “sheen” */
-.app-root .landing-empty-robotBadge::after {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0) 60%
-  );
-  transform: translateX(-35%) rotate(12deg);
-  animation: landingRobotSheen 5.5s ease-in-out infinite;
-}
-
-@keyframes landingRobotSheen {
-  0% {
-    transform: translateX(-45%) rotate(12deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateX(45%) rotate(12deg);
-    opacity: 0.15;
-  }
-  100% {
-    transform: translateX(45%) rotate(12deg);
-    opacity: 0;
-  }
-}
-
-.app-root .landing-empty-robot {
-  font-size: 34px;
-  line-height: 1;
-  z-index: 1;
-}
-
-/* Typed line */
-.app-root .landing-empty-line {
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
-
-  font-size: 1.6rem;
-  font-weight: 650;
-  line-height: 1.25;
-
-  color: var(--text-primary);
-
-  opacity: 0.96;
-  transition: opacity 0.22s ease;
-}
-
-.app-root .landing-empty-line.is-fading {
-  opacity: 0;
-}
-
-.app-root .landing-empty-typed {
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-.app-root .landing-empty-caret {
-  display: inline-block;
-  width: 10px;
-  height: 1.15em;
-  margin-left: 6px;
-  transform: translateY(2px);
-
-  background: rgba(241, 245, 249, 0.7);
-  border-radius: 2px;
-
-  animation: landingCaretBlink 0.9s steps(1) infinite;
-}
-
-@keyframes landingCaretBlink {
-  50% {
-    opacity: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .app-root .landing-empty-robotBadge {
-    width: 78px;
-    height: 78px;
-  }
-
-  .app-root .landing-empty-robot {
-    font-size: 30px;
-  }
-
-  .app-root .landing-empty-line {
-    font-size: 1.15rem;
   }
 }
 
@@ -346,10 +247,11 @@
   align-items: center;
   justify-items: center;
 
-  row-gap: 0.75rem;
+  row-gap: 0.85rem;
   padding: 2.25rem 1.5rem;
 }
 
+/* Static robot section */
 .app-root .landing-empty-robotWrap {
   height: 120px;
   display: flex;
@@ -369,24 +271,75 @@
   background:
     radial-gradient(
       circle at 30% 25%,
-      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.12),
       rgba(255, 255, 255, 0) 60%
     ),
-    linear-gradient(180deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.75));
+    linear-gradient(180deg, rgba(18, 31, 52, 0.88), rgba(8, 14, 27, 0.92));
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(153, 69, 255, 0.18);
 
-  /* subtler: less glow, less spread */
   box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.35),
-    0 0 0 5px rgba(37, 99, 235, 0.05),
-    0 0 18px rgba(37, 99, 235, 0.08);
+    0 12px 28px rgba(0, 0, 0, 0.36),
+    0 0 0 5px rgba(153, 69, 255, 0.05),
+    0 0 22px rgba(34, 211, 238, 0.08);
+
+  position: relative;
+  overflow: hidden;
 }
 
-/* optional: either remove sheen OR make it barely noticeable */
+/* subtle sheen */
 .app-root .landing-empty-robotBadge::after {
-  opacity: 0.22; /* was visually strong */
-  animation-duration: 7.5s; /* slower */
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  transform: translateX(-35%) rotate(12deg);
+  animation: landingRobotSheen 7.5s ease-in-out infinite;
+  opacity: 0.22;
+}
+
+@keyframes landingRobotSheen {
+  0% {
+    transform: translateX(-45%) rotate(12deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(45%) rotate(12deg);
+    opacity: 0.12;
+  }
+  100% {
+    transform: translateX(45%) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+.app-root .landing-empty-robot {
+  font-size: 34px;
+  line-height: 1;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .app-root .landing-empty-robotBadge {
+    width: 78px;
+    height: 78px;
+  }
+
+  .app-root .landing-empty-robot {
+    font-size: 30px;
+  }
+
+  .app-root .landing-empty-line {
+    font-size: 1.15rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -400,9 +353,7 @@
   .app-root .chat-container.is-empty .input-container {
     z-index: 5;
   }
-}
 
-@media (max-width: 768px) {
   .app-root .landing-empty-line {
     max-width: 100%;
   }
@@ -412,8 +363,6 @@
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    max-height: 15%;
-    height: 15%;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }

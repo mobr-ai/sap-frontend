@@ -37,36 +37,50 @@
 }
 
 .app-root .example-chip {
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1rem;
 
-  background: var(--surface-light);
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 28, 48, 0.92),
+    rgba(10, 18, 34, 0.92)
+  );
+  border: 1px solid rgba(120, 140, 180, 0.16);
+  border-radius: 999px;
 
   font-size: 0.875rem;
+  font-weight: 500;
   color: var(--text-secondary);
 
   cursor: pointer;
   transition: all 0.2s;
 
-  /* prevent horizontal overflow on long queries */
   max-width: 100%;
-  white-space: normal; /* allow multi-line */
-  overflow-wrap: anywhere; /* break long ids */
-  word-break: break-word; /* fallback */
-  hyphens: auto; /* nicer breaks when possible */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
   text-align: left;
   line-height: 1.25;
 
-  /* make sure flexbox allows shrinking */
   min-width: 0;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
 .app-root .example-chip:hover:not(.disabled) {
-  background: var(--surface);
-  border-color: var(--primary);
+  background: linear-gradient(
+    135deg,
+    rgba(153, 69, 255, 0.14),
+    rgba(34, 211, 238, 0.08)
+  );
+  border-color: rgba(34, 211, 238, 0.28);
   color: var(--text-primary);
   transform: translateY(-1px);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.18),
+    0 0 16px rgba(153, 69, 255, 0.08);
 }
 
 .app-root .example-chip.disabled {
@@ -82,13 +96,10 @@
   }
 }
 
-/* Wrapper for showing examples only in empty state, with a smooth collapse */
+/* Wrapper for showing examples only in empty state */
 .app-root .top-queries-wrap {
   overflow: hidden;
   transform-origin: top center;
-
-  /* enough for title + 1-2 lines of chips */
-  /* max-height: 260px; */
 
   opacity: 1;
   transform: scaleY(1);
@@ -112,10 +123,9 @@
   pointer-events: none;
 }
 
-/* Mobile: slightly smaller max-height and quicker collapse */
+/* Mobile */
 @media (max-width: 768px) {
   .app-root .top-queries-wrap {
-    /* max-height: 220px; */
     transition:
       max-height 240ms ease,
       opacity 180ms ease,

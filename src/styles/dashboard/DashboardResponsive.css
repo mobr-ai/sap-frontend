@@ -8,23 +8,18 @@
   }
 
   .dashboard-widget {
-    border-radius: 12px;
+    border-radius: 16px;
   }
 
   .dashboard-widget.widget-wide {
     grid-column: span 1 !important;
   }
 
-  /* On mobile we typically avoid hover transforms */
   .dashboard-widget:hover,
   .dashboard-widget-clickable:hover {
     transform: none;
   }
 
-  /*
-    Mobile collapsed widgets: avoid vertical stretching by not forcing
-    a fixed capture height. Let Vega render at its own computed height.
-  */
   .dashboard-widget-capture {
     height: auto;
     overflow: hidden;
@@ -41,8 +36,9 @@
     height: auto;
     max-height: none;
   }
+
   .dashboard-widget-modal .modal-content {
-    max-height: 72vh; /* slightly shorter */
+    max-height: 72vh;
   }
 
   .dashboard-widget-modal .modal-body {
@@ -52,15 +48,13 @@
 
 @media (max-width: 768px) {
   .dashboard-widget-modal-inner {
-    overflow: auto; /* allow content to scroll instead of feeling "tall" */
+    overflow: auto;
   }
 }
 
-/* Mobile modal should adapt to rotation */
 @media (max-width: 768px) {
-  /* default (portrait-ish) */
   .dashboard-widget-modal .modal-content {
-    max-height: 72svh; /* use small viewport height */
+    max-height: 72svh;
     width: min(96vw, 520px);
     margin: 0 auto;
   }
@@ -70,11 +64,10 @@
   }
 }
 
-/* Mobile landscape: shorter height, wider modal */
 @media (max-width: 768px) and (orientation: landscape) {
   .dashboard-widget-modal .modal-content {
-    max-height: 88svh; /* use more of the shorter height */
-    width: min(98vw, 860px); /* take advantage of horizontal space */
+    max-height: 88svh;
+    width: min(98vw, 860px);
   }
 
   .dashboard-widget-modal .modal-body {
@@ -82,7 +75,6 @@
   }
 }
 
-/* Extra safety: very short landscape devices */
 @media (max-width: 768px) and (orientation: landscape) and (max-height: 420px) {
   .dashboard-widget-modal .modal-content {
     max-height: 92svh;
@@ -107,21 +99,17 @@
 }
 
 /* -------------------------------------------------------
-   Mobile modal sizing must work in landscape too.
-   Landscape phones often exceed 768px width (e.g. 915x412),
-   so max-width rules won't apply. Use height + coarse pointer.
+   Mobile modal sizing must work in landscape too
 ------------------------------------------------------- */
 
-/* General: any coarse-pointer (phones/tablets) gets sane modal sizing */
 @media (pointer: coarse) {
   .dashboard-widget-modal .modal-content {
     width: min(96vw, 560px);
     margin: 0 auto;
-    max-height: 72svh; /* better than vh on mobile browsers */
+    max-height: 72svh;
   }
 }
 
-/* Landscape phone: width can be large, but height is small */
 @media (pointer: coarse) and (orientation: landscape) and (max-height: 520px) {
   .dashboard-widget-modal .modal-content {
     width: min(98vw, 980px);
@@ -133,7 +121,6 @@
   }
 }
 
-/* Fallback for browsers that don't support svh well */
 @supports not (height: 1svh) {
   @media (pointer: coarse) {
     .dashboard-widget-modal .modal-content {
