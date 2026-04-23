@@ -4,28 +4,63 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 1rem;
-  justify-items: center;
+  justify-items: stretch;
+  align-items: start;
   padding: 1rem 0;
 }
 
 .ShareModal-share-icon {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: background-color 0.2s ease-in-out;
-  padding: 0.5rem;
-  border-radius: 8px;
+  justify-content: center;
 }
 
-.ShareModal-share-icon:hover {
+/* The actual clickable share element from react-share or native button */
+.ShareModal-share-icon > :is(a, button) {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 80px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  border: none;
+  transition:
+    background-color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+}
+
+/* Avoid fighting inline button styles */
+.ShareModal-share-icon > button {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Hover/focus state on the real interactive node */
+.ShareModal-share-icon > :is(a, button):hover,
+.ShareModal-share-icon > :is(a, button):focus-visible {
   background-color: rgba(148, 163, 184, 0.16);
 }
 
+.ShareModal-share-icon svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
 .ShareModal-share-icon p {
-  margin-top: 0.5rem;
+  margin: 0;
   font-size: 0.8rem;
+  line-height: 1.2;
   color: rgba(226, 232, 240, 0.85);
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
 }
 
 /* Avoid fighting bootstrap global .modal-footer */
